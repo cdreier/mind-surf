@@ -1,0 +1,4 @@
+{
+  "presets": ["env", "stage-1", "react"],
+  "plugins": ["react-hot-loader/babel", "transform-decorators-legacy"]
+}

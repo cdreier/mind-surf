@@ -7,7 +7,7 @@ import (
 )
 
 type item struct {
-	Text     string
+	Name     string
 	Children []*item
 }
 
@@ -24,7 +24,7 @@ func parse(data string) item {
 		level := getLevel(line)
 
 		lineItem := item{
-			Text:     strings.TrimLeft(line, " "),
+			Name:     strings.TrimLeft(line, " "),
 			Children: make([]*item, 0),
 		}
 
@@ -33,7 +33,7 @@ func parse(data string) item {
 			currentLevelItem = &rootItem
 			lastLevel = 1
 		} else {
-			if rootItem.Text == "" || level-lastLevel > 1 {
+			if rootItem.Name == "" || level-lastLevel > 1 {
 				log.Fatal("syntax error in line: ", lineNumber)
 			}
 
