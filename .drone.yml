@@ -1,0 +1,17 @@
+workspace:
+  base: /go
+  path: src/github.com/cdreier/mind-surf
+
+pipeline:
+  frontend:
+    image: node
+    commands:
+      - cd frontend
+      - npm install
+      - npm run build
+
+  build:
+    image: golang
+    commands:
+      - go get
+      - packr build
