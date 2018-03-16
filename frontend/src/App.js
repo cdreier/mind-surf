@@ -5,8 +5,13 @@ import Tree from 'react-d3-tree'
 import * as mobx from 'mobx'
 
 const Wrapper = styled.div`
-  width: 50em;
-  height: 20em;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  position: absolute;
 `
 
 @inject('tree')
