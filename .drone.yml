@@ -15,8 +15,13 @@ pipeline:
     commands:
       - go get
       - go test
-      - GOOS=linux; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
-      - GOOS=darwin; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
-      - GOOS=windows; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.exe
+      - GOOS=linux GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
+      - GOOS=darwin GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
+      - GOOS=windows GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.exe
+      - mkdir release
+      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
+      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
+      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-windows-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-windows-amd64
+      - cd release
       - ls
 
