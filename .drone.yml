@@ -9,22 +9,28 @@ pipeline:
       - cd frontend
       - npm install
       - npm run build
+    when:
+      event: tag
 
   build:
     image: drailing/go_packr_zip
     commands:
       - go get
       - go test
-      - GOOS=linux GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
-      - GOOS=darwin GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
-      - GOOS=windows GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.exe
+      - GOOS=linux GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_TAG}-linux-amd64
+      - GOOS=darwin GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_TAG}-darwin-amd64
+      - GOOS=windows GOARCH=amd64 packr build -v -o ${DRONE_REPO_NAME}-${DRONE_TAG}-win-amd64.exe
       - mkdir release
-      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
-      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
-      - zip release/${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.zip ${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.exe
+      - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-linux-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-linux-amd64
+      - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-darwin-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-darwin-amd64
+      - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-win-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-win-amd64.exe
+    when:
+      event: tag
 
   github_release:
     image: plugins/github-release
     secrets: [ github_token ]
     files: release/*
+    when:
+      event: tag
 
