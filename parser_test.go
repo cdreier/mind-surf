@@ -9,8 +9,8 @@ func Test_parse(t *testing.T) {
 	in, _ := ioutil.ReadFile("./debug.txt")
 
 	rootItem := parse(string(in))
-	if rootItem.Text != "mind surf!" {
-		t.Error("wrong text in root item", rootItem.Text)
+	if rootItem.Name != "mind surf!" {
+		t.Error("wrong text in root item", rootItem.Name)
 	}
 	if len(rootItem.Children) != 3 {
 		t.Error("wrong number of childrens", len(rootItem.Children))
