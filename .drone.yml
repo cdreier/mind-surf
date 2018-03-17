@@ -13,9 +13,10 @@ pipeline:
   build:
     image: drailing/go_packr_zip
     commands:
-      - echo ${DRONE_REPO_NAME}
-      - echo ${DRONE_BRANCH}
       - go get
       - go test
-      - GOOS=linus; GOARCH=amd64; packr build
+      - GOOS=linux; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-linux-amd64
+      - GOOS=darwin; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-darwin-amd64
+      - GOOS=windows; GOARCH=amd64; packr build -o ${DRONE_REPO_NAME}-${DRONE_BRANCH}-win-amd64.exe
+      - ls
 
