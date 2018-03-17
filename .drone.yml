@@ -11,8 +11,11 @@ pipeline:
       - npm run build
 
   build:
-    image: golang
+    image: drailing/go_packr_zip
     commands:
+      - echo ${DRONE_REPO_NAME}
+      - echo ${DRONE_BRANCH}
       - go get
-      - go install github.com/gobuffalo/packr
-      - packr build
+      - go test
+      - GOOS=linus; GOARCH=amd64; packr build
+
