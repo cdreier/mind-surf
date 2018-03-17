@@ -9,8 +9,6 @@ pipeline:
       - cd frontend
       - npm install
       - npm run build
-    when:
-      event: tag
 
   build:
     image: drailing/go_packr_zip
@@ -24,8 +22,6 @@ pipeline:
       - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-linux-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-linux-amd64
       - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-darwin-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-darwin-amd64
       - zip release/${DRONE_REPO_NAME}-${DRONE_TAG}-win-amd64.zip ${DRONE_REPO_NAME}-${DRONE_TAG}-win-amd64.exe
-    when:
-      event: tag
 
   github_release:
     image: plugins/github-release
