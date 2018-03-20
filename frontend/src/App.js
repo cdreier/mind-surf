@@ -66,11 +66,10 @@ const treeStyle = {
   },
 }
 
-const separation = { 
-  siblings: 1.3, 
-  nonSiblings: 3,
-}
-
+// const separation = { 
+//   siblings: 1.3, 
+//   nonSiblings: 3,
+// }
 
 @inject('tree')
 @observer
@@ -79,7 +78,6 @@ class App extends Component {
     return (
       <Wrapper >
         <Tree 
-          separation={separation}
           styles={treeStyle}
           textLayout={textLayout}
           data={mobx.toJS(this.props.tree.data)} />
