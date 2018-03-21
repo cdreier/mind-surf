@@ -18,6 +18,7 @@ type holder struct {
 func main() {
 
 	dev := flag.Bool("dev", false, "set dev to load from webpack instead of dist bundle")
+	port := flag.String("port", "3000", "the port to start the server")
 	flag.Parse()
 	arg := flag.Args()
 
@@ -38,10 +39,9 @@ func main() {
 	distBox := packr.NewBox("./frontend/dist")
 	http.Handle("/dist/", http.StripPrefix("/dist", http.FileServer(distBox)))
 
-	port := "3000"
-	log.Println("starting webserver on port", port)
+	log.Println("starting webserver on port", *port)
 
-	http.ListenAndServe(":"+port, nil)
+	http.ListenAndServe(":"+*port, nil)
 }
 
 func (h *holder) index(w http.ResponseWriter, r *http.Request) {
